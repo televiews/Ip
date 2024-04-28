@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Page</title>
+</head>
+
+<body>
+    <h1>Verification Page</h1>
+    <p>Click the button below to verify yourself:</p>
+    <button id="verifyButton">Verify</button>
+
+    <script>
+        document.getElementById("verifyButton").addEventListener("click", async () => {
+            try {
+                // Fetch the user's IP address
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                const ipAddress = data.ip;
+                
+                // Send the IP address to your backend for verification
+                const response2 = await fetch('YOUR_BACKEND_ENDPOINT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ipAddress: ipAddress })
+                });
+                
+                // Handle the response from your backend
+                const result = await response2.json();
+                if (result.success) {
+                    alert('Verification successful! Please go back to the bot and click on /start again.');
+                } else {
+                    alert('Verification failed! You are not allowed to refer yourself.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+
+</html>
