@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #202022;
             margin: 0;
             padding: 0;
             display: flex;
@@ -57,7 +57,7 @@
             bottom: 10px;
             left: 50%;
             transform: translateX(-50%);
-            color: #999;
+            color: #ffffff;
             font-size: 12px;
         }
     </style>
@@ -70,25 +70,30 @@
     </div>
 
     <div class="footer">
-        Powered By PayTM Verified BOTS
+        Powered By PayTM Verified BOTS©
     </div>
 
     <script>
         async function verifyUser() {
             try {
-                const response = await fetch('https://4966-122-185-34-54.ngrok-free.app/verify', {
+                const response = await fetch('http://localhost:3000/verify', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
                 const data = await response.json();
-                alert(data.message); // Show the response message
+                if (data.message === 'Verification successful') {
+                    window.location.href = 'verification-success.html'; // Redirect to success page
+                } else if (data.message === 'Multi refer not allowed') {
+                    window.location.href = 'already-verified.html'; // Redirect to already verified page
+                }
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again later.');
             }
         }
     </script>
+    
 </body>
 </html>
