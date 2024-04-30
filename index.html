@@ -72,31 +72,29 @@
     <div class="footer">
         Powered By PayTM Verified BOTS©
     </div>
-
-    <script>
-        <script>
-    async function verifyUser() {
-        try {
-            const response = await fetch('http://localhost:3000/verification-status', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
+<script>
+        // Define the verifyUser function before it is called
+        async function verifyUser() {
+            try {
+                const response = await fetch('http://localhost:3000/verification-status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status: 'Verification successful' })
+                });
+                const data = await response.json();
+                if (data.message === 'Verification successful') {
+                    window.location.href = 'verification-success.html'; // Redirect to success page
+                } else if (data.message === 'Multi refer not allowed') {
+                    window.location.href = 'already-verified.html'; // Redirect to already verified page
                 }
-            });
-            const data = await response.json();
-            if (data.message === 'Verification successful') {
-                window.location.href = 'verification-success.html'; // Redirect to success page
-            } else if (data.message === 'Multi refer not allowed') {
-                window.location.href = 'already-verified.html'; // Redirect to already verified page
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again later.');
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred. Please try again later.');
         }
-    }
-</script>
-
     </script>
-    
+        
 </body>
 </html>
