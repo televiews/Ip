@@ -74,25 +74,28 @@
     </div>
 
     <script>
-        async function verifyUser() {
-            try {
-                const response = await fetch('http://localhost:3000/verification-status', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                const data = await response.json();
-                if (data.message === 'Verification successful') {
-                    window.location.href = 'verification-success.html'; // Redirect to success page
-                } else if (data.message === 'Multi refer not allowed') {
-                    window.location.href = 'already-verified.html'; // Redirect to already verified page
+        <script>
+    async function verifyUser() {
+        try {
+            const response = await fetch('http://localhost:3000/verification-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again later.');
+            });
+            const data = await response.json();
+            if (data.message === 'Verification successful') {
+                window.location.href = 'verification-success.html'; // Redirect to success page
+            } else if (data.message === 'Multi refer not allowed') {
+                window.location.href = 'already-verified.html'; // Redirect to already verified page
             }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
         }
+    }
+</script>
+
     </script>
     
 </body>
